@@ -7,6 +7,8 @@ package funnyai;
 
 import com.funnyai.data.C_K_Str;
 import com.funnyai.data.Treap;
+import com.funnyai.string.Old.S_Strings;
+import static java.lang.System.out;
 
 /**
  *
@@ -37,7 +39,7 @@ public class C_Function {
                     pMap=new C_Map(strParam[1]);
                     pTreap.insert(new C_K_Str(strParam[1]), pMap);
                 }
-                return pMap.find(strParam[0]);
+                return pMap.find(strName,strParam[0]);
             case "map_big":
                 C_Map_Big pMap_Big=(C_Map_Big) pTreap.find(new C_K_Str(strParam[1]));
                 if (pMap_Big==null){
@@ -51,7 +53,12 @@ public class C_Function {
                 int b=Integer.parseInt(strParam[2]);
                 return strLine.substring(a,a+b);
             case "round":
-                this.dbValue=Math.round(Double.parseDouble(strParam[0]));
+                if (S_Strings.isNumeric(strParam[0])){
+                    this.dbValue=Math.round(Double.parseDouble(strParam[0]));
+                }else{
+                    out.println(strName+":not number:"+strParam[0]);
+                    this.dbValue=0;
+                }
                 break;
             case "sum":
                 for (String strParam1 : strParam) {

@@ -1,11 +1,13 @@
 package funnyai;
 
+import com.funnyai.data.C_K_Double;
 import com.funnyai.data.TreapEnumerator;
 import com.funnyai.data.C_K_Int;
 import com.funnyai.data.C_K_Str;
 import com.funnyai.data.Treap;
 import com.funnyai.io.C_File;
 import com.funnyai.io.Old.S_File;
+import com.funnyai.string.Old.S_Strings;
 import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +95,7 @@ public class JavaMain {
             }
             List<SelectItem> pSelectItems=p.getSelectItems();
             List<Expression> pGroups=p.getGroupByColumnReferences();
+           //List<OrderByElement> pOrders=p.getOrderByElements();
             
             
             Loop_Send_Msg pLoop_Send_Msg=new Loop_Send_Msg();
@@ -153,9 +156,11 @@ public class JavaMain {
             
             C_File pFile2=S_File.Write_Begin(strOutput, false, "utf-8");
             String strLineOutput;
+            
             //数据处理
             if (bGroup==true){//处理Group的数据
                 Treap<C_Group> pTreapGroups=new Treap<>(); //先分群
+                Treap<C_Group> pTreapGroups_Double=new Treap<>(); //先分群
                 if (pGroups!=null && pGroups.size()>0){//如果有group语句
                     for(int k=0;k<pData.size();k++){
                         C_Line pLine1=pData.get(k);
@@ -164,6 +169,11 @@ public class JavaMain {
                         if (pGroup==null){
                             pGroup=new C_Group();
                             pGroup.GroupName=pLine1.Group;
+                            if (S_Strings.isNumeric(pGroup.GroupName)){
+                                pTreapGroups_Double.insert(
+                                        new C_K_Double(Double.parseDouble(pGroup.GroupName)), 
+                                        pGroup);
+                            }
                             pTreapGroups.insert(new C_K_Str(pGroup.GroupName), pGroup);
                         }
                         pGroup.pTreap.insert(new C_K_Int(k), pLine1);
@@ -182,7 +192,15 @@ public class JavaMain {
                 Line_Count=1;
                 Row_Count=pTreapGroups.Size();
                 //然后对每个Group进行数据统计
-                TreapEnumerator<C_Group> p2=pTreapGroups.Elements();
+                
+                
+                TreapEnumerator<C_Group> p2;
+                if (pTreapGroups_Double.Size()>=pTreapGroups.Size()){
+                    //如果是Double类型
+                    p2=pTreapGroups_Double.Elements();
+                }else{
+                    p2=pTreapGroups.Elements();
+                }
                 while(p2.HasMoreElements()){
                     if (Line_Count % 1000==0){
                         float Percent=Math.round(500*Line_Count/Row_Count)/10+50;

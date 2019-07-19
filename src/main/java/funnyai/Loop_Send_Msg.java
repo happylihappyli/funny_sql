@@ -30,7 +30,7 @@ public class Loop_Send_Msg extends Thread{
             if (pList.size()>0){
                 C_Msg pMsg=pList.get(pList.size()-1);
                 pList=new ArrayList<>();
-                S_Net.Send_Msg_To_Socket_IO(pMsg.From,pMsg.Msg, "", "");
+                S_Net.Send_Msg_To_Socket_IO("sys_event",pMsg.From,pMsg.Msg, "", "");
             }
         }
     }

@@ -9,6 +9,7 @@ import com.funnyai.data.C_K_Str;
 import com.funnyai.data.Treap;
 import com.funnyai.io.C_File;
 import com.funnyai.io.Old.S_File;
+import com.funnyai.io.S_file_sub;
 import static java.lang.System.out;
 
 /**
@@ -18,15 +19,15 @@ import static java.lang.System.out;
 public class C_Map_Big {
     public Treap<String> pTreap=new Treap<>();
     C_Map_Big(String strFile) {
-        C_File pFile=S_File.Read_Begin(strFile, "utf-8");
-        String strLine=S_File.read_line(pFile);
+        C_File pFile=S_file_sub.Read_Begin(strFile, "utf-8");
+        String strLine=S_file_sub.read_line(pFile);
         while(strLine!=null){
             strLine=strLine.replace("\t", ",");
             String[] strSplit=strLine.split(",");
             if (strSplit.length>2){
                 pTreap.insert(new C_K_Str(strSplit[0]+":"+strSplit[1]), strSplit[2]);
             }
-            strLine=S_File.read_line(pFile);
+            strLine=S_file_sub.read_line(pFile);
         }
         pFile.Close();
     }

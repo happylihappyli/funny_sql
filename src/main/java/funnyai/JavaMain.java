@@ -59,6 +59,7 @@ public class JavaMain {
     }
     
     
+    public static String strUser="";
     
     public static void main(String[] args){
         try {
@@ -66,16 +67,17 @@ public class JavaMain {
             String sql="select c1,c3,c2 from test";
             String strSep="";
             String strOutput="";
-            if (args.length>4){
-                strFile=args[0];
-                JavaMain.max_read=Integer.parseInt(args[1]);
-                sql=args[2];
-                strSep=args[3];
+            if (args.length>5){
+                strUser=args[0];
+                strFile=args[1];
+                JavaMain.max_read=Integer.parseInt(args[2]);
+                sql=args[3];
+                strSep=args[4];
                 if (strSep.equals("t")) strSep="\t";
                 if (strSep.equals("v")) strSep="\\|";
-                strOutput=args[4];
+                strOutput=args[5];
             }else{
-                out.println("4个参数 文件 sql t outputfile");
+                out.println("5个参数 文件 sql t outputfile user");
                 return ;
             }
             
@@ -138,7 +140,7 @@ public class JavaMain {
                 }
                 if (Line_Count % 1000==0){
                     float Percent=Math.round(500*Line_Count/max_read)/10;
-                    pLoop_Send_Msg.Add_Send_Msg("progress2", Percent+"");
+                    pLoop_Send_Msg.Add_Send_Msg("progress2",strUser, Percent+"");
                 }
                 if (pData.size()>max_read) break;
 
@@ -206,7 +208,7 @@ public class JavaMain {
                     if (Line_Count % 1000==0){
                         float Percent=Math.round(500*Line_Count/Row_Count)/10+50;
                         //S_Net.Send_Msg_To_Socket_IO("progress2", Percent+"", "", "");
-                        pLoop_Send_Msg.Add_Send_Msg("progress2", Percent+"");
+                        pLoop_Send_Msg.Add_Send_Msg("progress2",strUser, Percent+"");
                     }
                     
                     C_Group pGroup=p2.NextElement();
@@ -251,7 +253,7 @@ public class JavaMain {
                 for(int k=iStart;k<pData.size();k++){
                     if (Line_Count % 1000==0){
                         float Percent=Math.round(500*Line_Count/Row_Count)/10+50;
-                        pLoop_Send_Msg.Add_Send_Msg("progress2", Percent+"");
+                        pLoop_Send_Msg.Add_Send_Msg("progress2", strUser,Percent+"");
                     }
                     iCount+=1;
                     if (iCount % 10000 == 0) out.println(iCount);
@@ -267,7 +269,7 @@ public class JavaMain {
                     S_File.Write_Line(pFile2, strLineOutput);
                 }
             }
-            pLoop_Send_Msg.Add_Send_Msg("progress2", "100");
+            pLoop_Send_Msg.Add_Send_Msg("progress2", strUser,"100");
             Table pFrom=(Table) p.getFromItem();
             out.println("db="+pFrom.getName());
             

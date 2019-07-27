@@ -12,9 +12,11 @@ package funnyai;
 public class C_Msg {
     public String From="";
     public String Msg="";
+    public String To="";
 
-    C_Msg(String strFrom, String strMsg) {
+    C_Msg(String strFrom, String strTo,String strMsg) {
         this.From=strFrom;
+        this.To=strTo;
         this.Msg=strMsg;
     }
     

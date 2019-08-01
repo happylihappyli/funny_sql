@@ -20,8 +20,8 @@ public class C_Map {
     public Treap<String> pTreap=new Treap<>();
     C_Map(String strFile) {
         this.strFile=strFile;
-        C_File pFile=S_file_sub.Read_Begin(strFile, "utf-8");
-        String strLine=S_file_sub.read_line(pFile);
+        C_File pFile=S_file_sub.main.Read_Begin(strFile, "utf-8");
+        String strLine=S_file_sub.main.read_line(pFile);
         while(strLine!=null){
             strLine=strLine.replace("\t", ",");
             String[] strSplit=strLine.split(",");
@@ -34,7 +34,7 @@ public class C_Map {
                 }
                 pTreap.insert(new C_K_Str(key), strSplit[1]);
             }
-            strLine=S_file_sub.read_line(pFile);
+            strLine=S_file_sub.main.read_line(pFile);
         }
         pFile.Close();
     }

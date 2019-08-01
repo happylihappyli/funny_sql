@@ -109,18 +109,18 @@ public class JavaMain {
             //读取数据,用where 过滤掉
             out.println("File="+strFile);
             
-            C_File pFile=S_file_sub.Read_Begin(strFile, "utf-8");
-            String strLine=S_file_sub.read_line(pFile);
+            C_File pFile=S_file_sub.main.Read_Begin(strFile, "utf-8");
+            String strLine=S_file_sub.main.read_line(pFile);
             int Line_Count=1;
             while(strLine!=null){
-                strLine=S_file_sub.read_line(pFile);
+                strLine=S_file_sub.main.read_line(pFile);
                 Line_Count+=1;
             }
             if (Line_Count<max_read) max_read=Line_Count;
             
             
-            pFile=S_file_sub.Read_Begin(strFile, "utf-8");
-            strLine=S_file_sub.read_line(pFile);
+            pFile=S_file_sub.main.Read_Begin(strFile, "utf-8");
+            strLine=S_file_sub.main.read_line(pFile);
             Line_Count=1;
             while(strLine!=null){
                 C_Line pLine1=new C_Line();
@@ -144,7 +144,7 @@ public class JavaMain {
                 }
                 if (pData.size()>max_read) break;
 
-                strLine=S_file_sub.read_line(pFile);
+                strLine=S_file_sub.main.read_line(pFile);
                 Line_Count+=1;
             }
             pFile.Close();

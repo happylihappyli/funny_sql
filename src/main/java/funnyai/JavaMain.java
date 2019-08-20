@@ -8,7 +8,6 @@ import com.funnyai.data.Treap;
 import com.funnyai.io.C_File;
 import com.funnyai.io.Old.S_File;
 import com.funnyai.io.S_file;
-import com.funnyai.io.S_file_sub;
 import com.funnyai.string.Old.S_Strings;
 import static java.lang.System.out;
 import java.util.ArrayList;
@@ -63,13 +62,23 @@ public class JavaMain {
     public static String strUser="";
     
     public static void main(String[] args){
+        
+        
+            
+        Loop_Send_Msg pLoop_Send_Msg=new Loop_Send_Msg();
+        pLoop_Send_Msg.start();
         try {
+            //S_Net.Send_Msg_To_Socket_IO("chat_event","*","test","haha哈哈哈", "", "");
+            
             String strFile="";
             String sql="select c1,c3,c2 from test";
             String strSep="";
             String strOutput="";
             if (args.length>5){
                 strUser=args[0];
+                if ("x".equals(strUser)){
+                    strUser="*";
+                }
                 strFile=args[1];
                 JavaMain.max_read=Integer.parseInt(args[2]);
                 sql=args[3];
@@ -101,9 +110,6 @@ public class JavaMain {
             List<Expression> pGroups=p.getGroupByColumnReferences();
            //List<OrderByElement> pOrders=p.getOrderByElements();
             
-            
-            Loop_Send_Msg pLoop_Send_Msg=new Loop_Send_Msg();
-            pLoop_Send_Msg.start();
             
             ArrayList<C_Line> pData=new ArrayList<>();
             
@@ -139,7 +145,7 @@ public class JavaMain {
                 }else{
                     pData.add(pLine1);
                 }
-                if (Line_Count % 1000==0){
+                if (Line_Count % 100==0){
                     float Percent=Math.round(500*Line_Count/max_read)/10;
                     pLoop_Send_Msg.Add_Send_Msg("progress2",strUser, Percent+"");
                 }
@@ -206,9 +212,8 @@ public class JavaMain {
                     p2=pTreapGroups.Elements();
                 }
                 while(p2.HasMoreElements()){
-                    if (Line_Count % 1000==0){
+                    if (Line_Count % 100==0){
                         float Percent=Math.round(500*Line_Count/Row_Count)/10+50;
-                        //S_Net.Send_Msg_To_Socket_IO("progress2", Percent+"", "", "");
                         pLoop_Send_Msg.Add_Send_Msg("progress2",strUser, Percent+"");
                     }
                     
@@ -275,16 +280,13 @@ public class JavaMain {
             out.println("db="+pFrom.getName());
             
             pFile2.Close();
-            pLoop_Send_Msg.bSend=false;
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(JavaMain.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
             
-        } catch (JSQLParserException ex){
+            Thread.sleep(10*1000);
+        } catch (JSQLParserException | InterruptedException ex){
             Logger.getLogger(JavaMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+        pLoop_Send_Msg.bSend=false;
         System.exit(0);
     }
 

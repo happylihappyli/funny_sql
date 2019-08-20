@@ -10,7 +10,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath funnyai.JavaMain E:\Test\5695.data 250000 "SELECT   c1*0.4011527,  c2*1.0591019,  c3*0.04270433,  c4*0.03983343,  c5*0.04836298,  -c6*0.06688996,  c7*0.09305487,  -c8*0.0153968,  c9*0.06236406,  c10*0.04361872,  -c11*0.16237123,  c12*0.123464,  c13*0.04860577,  -c14*0.28510132,  c15*0.01001278,  -c16*0.10555976,  c17*0.23788974,  -c18*0.66262335,  c19   From T  Limit 250000" "," E:\out_c10.txt</exec.args>
+                <exec.args>-classpath %classpath funnyai.JavaMain x E:\Test\5489.data 250000 "SELECT c1*0.4011527,  c2*1.0591019,  c3*0.04270433,  c4*0.03983343,  c5*0.04836298,  -c6*0.06688996,  c7*0.09305487,  -c8*0.0153968,  c9*0.06236406,  c10*0.04361872,  -c11*0.16237123,  c12*0.123464,  c13*0.04860577,  -c14*0.28510132,  c15*0.01001278,  -c16*0.10555976,  c17*0.23788974,  -c18*0.66262335,  c19   From T  Limit 250000" "," E:\out_c10.txt</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -24,7 +24,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
             </goals>
             <properties>
-                <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath funnyai.JavaMain E:\Test\5695.data 250000 "SELECT   c1*0.4011527,  c2*1.0591019,  c3*0.04270433,  c4*0.03983343,  c5*0.04836298,  -c6*0.06688996,  c7*0.09305487,  -c8*0.0153968,  c9*0.06236406,  c10*0.04361872,  -c11*0.16237123,  c12*0.123464,  c13*0.04860577,  -c14*0.28510132,  c15*0.01001278,  -c16*0.10555976,  c17*0.23788974,  -c18*0.66262335,  c19   From T  Limit 250000" "," E:\out_c10.txt</exec.args>
+                <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath funnyai.JavaMain x E:\Test\5489.data 250000 "SELECT c1*0.4011527,  c2*1.0591019,  c3*0.04270433,  c4*0.03983343,  c5*0.04836298,  -c6*0.06688996,  c7*0.09305487,  -c8*0.0153968,  c9*0.06236406,  c10*0.04361872,  -c11*0.16237123,  c12*0.123464,  c13*0.04860577,  -c14*0.28510132,  c15*0.01001278,  -c16*0.10555976,  c17*0.23788974,  -c18*0.66262335,  c19   From T  Limit 250000" "," E:\out_c10.txt</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -39,7 +39,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath funnyai.JavaMain E:\Test\5695.data 250000 "SELECT   c1*0.4011527,  c2*1.0591019,  c3*0.04270433,  c4*0.03983343,  c5*0.04836298,  -c6*0.06688996,  c7*0.09305487,  -c8*0.0153968,  c9*0.06236406,  c10*0.04361872,  -c11*0.16237123,  c12*0.123464,  c13*0.04860577,  -c14*0.28510132,  c15*0.01001278,  -c16*0.10555976,  c17*0.23788974,  -c18*0.66262335,  c19   From T  Limit 250000" "," E:\out_c10.txt</exec.args>
+                <exec.args>-classpath %classpath funnyai.JavaMain x E:\Test\5489.data 250000 "SELECT c1*0.4011527,  c2*1.0591019,  c3*0.04270433,  c4*0.03983343,  c5*0.04836298,  -c6*0.06688996,  c7*0.09305487,  -c8*0.0153968,  c9*0.06236406,  c10*0.04361872,  -c11*0.16237123,  c12*0.123464,  c13*0.04860577,  -c14*0.28510132,  c15*0.01001278,  -c16*0.10555976,  c17*0.23788974,  -c18*0.66262335,  c19   From T  Limit 250000" "," E:\out_c10.txt</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>

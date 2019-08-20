@@ -23,14 +23,15 @@ public class Loop_Send_Msg extends Thread{
     public void run(){
         while(bSend){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(200);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Loop_Send_Msg.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (pList.size()>0){
                 C_Msg pMsg=pList.get(pList.size()-1);
                 pList=new ArrayList<>();
-                S_Net.Send_Msg_To_Socket_IO("sys_event",pMsg.To, pMsg.From,pMsg.Msg, "", "");
+                S_Net.SI_Send("sys_event","status",pMsg.From,pMsg.To, pMsg.Msg);
+                pList.remove(pMsg);
             }
         }
     }

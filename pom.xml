@@ -64,6 +64,7 @@
     
     <build>
         <plugins>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -108,6 +109,26 @@
                 </configuration>
             </plugin>
 
+
+            <plugin>
+                <groupId>com.funnyai</groupId>
+                <artifactId>funny-maven-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <configuration>
+                    <prefix>---</prefix>
+                    <upload>E:\happyli\Jar\file_sql\funny_sql.jar</upload>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>buildinfo</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>buildinfo</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
 
 

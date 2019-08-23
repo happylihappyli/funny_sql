@@ -79,15 +79,21 @@ public class JavaMain {
                 if ("x".equals(strUser)){
                     strUser="*";
                 }
+                out.println("0="+strUser);
                 strFile=args[1];
+                out.println("1="+strFile);
                 JavaMain.max_read=Integer.parseInt(args[2]);
+                out.println("2="+JavaMain.max_read);
                 sql=args[3];
+                out.println("3="+sql);
                 strSep=args[4];
+                out.println("4="+strSep);
                 if (strSep.equals("t")) strSep="\t";
                 if (strSep.equals("v")) strSep="\\|";
                 strOutput=args[5];
+                out.println("5="+strOutput);
             }else{
-                out.println("5个参数 文件 sql t outputfile user");
+                out.println("5个参数 user 文件 sql t outputfile");
                 return ;
             }
             

@@ -93,7 +93,7 @@ public class JavaMain {
                 strOutput=args[5];
                 out.println("5="+strOutput);
             }else{
-                out.println("5个参数 user 文件 sql t outputfile");
+                out.println("6个参数 user 文件 max_read sql t outputfile");
                 return ;
             }
             

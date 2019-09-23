@@ -48,10 +48,30 @@ public class C_Function {
                 }
                 return pMap_Big.find(strName,strParam[0]);
             case "substring":
-                String strLine=strParam[0];
-                int a=Integer.parseInt(strParam[1])-1;
-                int b=Integer.parseInt(strParam[2]);
-                return strLine.substring(a,a+b);
+                {
+                    String strLine=strParam[0];
+                    int a=Integer.parseInt(strParam[1])-1;
+                    int b=Integer.parseInt(strParam[2]);
+                    return strLine.substring(a,a+b);
+                }
+            case "isnumeric":
+                {
+                    String strLine=strParam[0];
+                    if (S_Strings.isNumeric(strLine)){
+                        return "1";
+                    }else{
+                        return "0";
+                    }
+                }
+            case "ifzero":
+                {
+                    String strLine=strParam[0];
+                    if ("0".equals(strLine)){
+                        return "1";
+                    }else{
+                        return "0";
+                    }
+                }
             case "round":
                 if (S_Strings.isNumeric(strParam[0])){
                     this.dbValue=Math.round(Double.parseDouble(strParam[0]));

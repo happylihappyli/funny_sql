@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package funnyai;
+package com.funnyai.tools;
 
 import com.funnyai.data.C_K_Str;
 import com.funnyai.data.Treap;
@@ -17,7 +17,7 @@ import static java.lang.System.out;
 public class C_Function {
     public String Name="";
     public double dbValue=0;
-    boolean bCaculate=false;
+    public boolean bCaculate=false;
     
     public static Treap pTreap=new Treap();
     

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package funnyai;
+package com.funnyai.tools;
 
 /**
  *
@@ -14,7 +14,7 @@ public class C_Msg {
     public String Msg="";
     public String To="";
 
-    C_Msg(String strFrom, String strTo,String strMsg) {
+    public C_Msg(String strFrom, String strTo,String strMsg) {
         this.From=strFrom;
         this.To=strTo;
         this.Msg=strMsg;

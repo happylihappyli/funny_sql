@@ -1,14 +1,14 @@
 package funnyai;
 
-import com.funnyai.data.C_K_Double;
-import com.funnyai.data.TreapEnumerator;
-import com.funnyai.data.C_K_Int;
-import com.funnyai.data.C_K_Str;
-import com.funnyai.data.Treap;
+import com.funnyai.common.Tools_Init;
+import com.funnyai.tools.*;
+import com.funnyai.data.*;
 import com.funnyai.io.C_File;
+import com.funnyai.io.Old.C_Property_File;
 import com.funnyai.io.Old.S_File;
 import com.funnyai.io.S_file;
 import com.funnyai.string.Old.S_Strings;
+import java.io.FileNotFoundException;
 import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,7 @@ import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.*;
+import tcp.TCP_Client;
 
 /**
  *
@@ -68,33 +69,49 @@ public class JavaMain {
         Loop_Send_Msg pLoop_Send_Msg=new Loop_Send_Msg();
         pLoop_Send_Msg.start();
         try {
-            //S_Net.Send_Msg_To_Socket_IO("chat_event","*","test","haha哈哈哈", "", "");
-            
             String strFile="";
             String sql="select c1,c3,c2 from test";
             String strSep="";
             String strOutput="";
-            if (args.length>5){
-                strUser=args[0];
+            String File_Init="";
+            if (args.length>6){
+                File_Init=args[0];
+                
+
+                out.println("0="+File_Init);
+                strUser=args[1];
                 if ("x".equals(strUser)){
                     strUser="*";
                 }
-                out.println("0="+strUser);
-                strFile=args[1];
-                out.println("1="+strFile);
-                JavaMain.max_read=Integer.parseInt(args[2]);
-                out.println("2="+JavaMain.max_read);
-                sql=args[3];
-                out.println("3="+sql);
-                strSep=args[4];
-                out.println("4="+strSep);
+                out.println("1="+strUser);
+                strFile=args[2];
+                out.println("2="+strFile);
+                JavaMain.max_read=Integer.parseInt(args[3]);
+                out.println("3="+JavaMain.max_read);
+                sql=args[4];
+                out.println("4="+sql);
+                strSep=args[5];
+                out.println("5="+strSep);
                 if (strSep.equals("t")) strSep="\t";
                 if (strSep.equals("v")) strSep="\\|";
-                strOutput=args[5];
-                out.println("5="+strOutput);
+                strOutput=args[6];
+                out.println("6="+strOutput);
             }else{
-                out.println("6个参数 user 文件 max_read sql t outputfile");
+                out.println("args.length="+args.length+"7个参数 ini文件 user 文件 max_read sql t outputfile");
                 return ;
+            }
+                
+            Tools_Init.Init(File_Init);
+            try {
+                C_Property_File pFile=new C_Property_File(File_Init);
+                
+                String tcp_host=pFile.Read("tcp.host");
+                int tcp_port=Integer.parseInt(pFile.Read("tcp.port"));
+
+                TCP_Client.client=new TCP_Client(tcp_host,tcp_port);
+                TCP_Client.client.start();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(JavaMain.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             sql=SQL_Replace(sql);

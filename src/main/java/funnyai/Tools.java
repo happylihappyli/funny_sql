@@ -5,6 +5,8 @@
  */
 package funnyai;
 
+import com.funnyai.tools.C_Group;
+import com.funnyai.tools.C_Function;
 import com.funnyai.data.C_K_Str;
 import com.funnyai.string.Old.S_Strings;
 import static java.lang.System.out;

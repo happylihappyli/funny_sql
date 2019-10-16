@@ -5,10 +5,12 @@
  */
 package funnyai;
 
+import com.funnyai.tools.C_Msg;
 import com.funnyai.net.Old.S_Net;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tcp.TCP_Client;
 
 /**
  *
@@ -30,7 +32,8 @@ public class Loop_Send_Msg extends Thread{
             if (pList.size()>0){
                 C_Msg pMsg=pList.get(pList.size()-1);
                 pList=new ArrayList<>();
-                S_Net.SI_Send("sys_event","status",pMsg.From,pMsg.To, pMsg.Msg);
+                //S_Net.SI_Send("sys_event","status",pMsg.From,pMsg.To, pMsg.Msg);
+                TCP_Client.client.Send_Msg(0, "", "status",pMsg.From,pMsg.To, pMsg.Msg);
                 pList.remove(pMsg);
             }
         }

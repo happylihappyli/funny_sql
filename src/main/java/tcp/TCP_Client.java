@@ -1,17 +1,8 @@
 
 package tcp;
 
-import com.funnyai.common.AI_Var2;
-import com.funnyai.common.S_Debug;
-import com.funnyai.net.Old.S_Net;
-import com.funnyai.string.Old.S_Strings;
-import funnyai.JavaMain;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import static java.lang.System.out;
 import java.net.Socket;
-import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONObject;
@@ -78,15 +69,14 @@ public class TCP_Client extends Thread {
             Msg_ID++;
             ID=Msg_ID;
         }
-        //String token=get_token();
         JSONObject obj = new JSONObject();
+//        obj.put("token", get_token());
         obj.put("id", ID+"");
         obj.put("oid", old_ID);
         obj.put("type", type);
         obj.put("from", from);
         obj.put("to", strTo);
         obj.put("message", strMsg);
-//        obj.put("token", token);
         
         try {
             byte[] b = ("m:<s>:"+obj.toString()+":</s>\r\n").getBytes("UTF-8");

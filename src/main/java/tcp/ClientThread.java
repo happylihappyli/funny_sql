@@ -133,32 +133,7 @@ public class ClientThread extends Thread{// implements Runnable{
                 return ;
             }
             client.Send_Msg(0,id,"chat_return",userName,strFrom,id); //消息返回
-            switch(strType){
-                case "js"://zzz 以后用cmd即可
-                    String data2="email="+S_Strings.URL_Encode(strSplit[0])+"&token="+S_Strings.URL_Encode(token);
-                    String result2=S_Net.http_post(url, data2);
-                    out.println(url);
-                    out.println(data2);
-                    strSplit=result2.split("=");
-                    out.println(result2);
-//                    if (result2.contains("登录成功") && 
-//                            JavaMain.admins.contains(","+strSplit[1]+",")){
-//                        try{
-//                            Run_Cmd_Reply p=new Run_Cmd_Reply(this.client,this.userName,strFrom);
-//                            p.Command="run_js "+strMessage;
-//                            p.start();
-//                        }catch (Exception ex){
-//                            S_Debug.Write_DebugLog("chat_event", ex.toString());
-//                        }
-//                    }else{
-//                        client.Send_Msg(0,id,"chat_event","msg",userName,strFrom,"没有权限！");
-//                    }
-                    break;
-                default:
-                    break;
-            }
-
-
+            
             out.println(obj.toString());
         }
     }

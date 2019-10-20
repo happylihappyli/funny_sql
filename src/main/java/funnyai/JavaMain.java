@@ -61,23 +61,18 @@ public class JavaMain {
     
     
     public static String strUser="";
+    public static String strOutput="";
     
     public static void main(String[] args){
         
-        
-            
-        Loop_Send_Msg pLoop_Send_Msg=new Loop_Send_Msg();
-        pLoop_Send_Msg.start();
         try {
             String strFile="";
             String sql="select c1,c3,c2 from test";
             String strSep="";
-            String strOutput="";
             String File_Init="";
             if (args.length>6){
                 File_Init=args[0];
                 
-
                 out.println("0="+File_Init);
                 strUser=args[1];
                 if ("x".equals(strUser)){
@@ -131,8 +126,6 @@ public class JavaMain {
             }
             List<SelectItem> pSelectItems=p.getSelectItems();
             List<Expression> pGroups=p.getGroupByColumnReferences();
-           //List<OrderByElement> pOrders=p.getOrderByElements();
-            
             
             ArrayList<C_Line> pData=new ArrayList<>();
             
@@ -170,7 +163,8 @@ public class JavaMain {
                 }
                 if (Line_Count % 100==0){
                     float Percent=Math.round(500*Line_Count/max_read)/10;
-                    pLoop_Send_Msg.Add_Send_Msg("progress2",strUser, Percent+"");
+                    TCP_Client.client.Send_Msg(0, "", "status","progress2",strUser, Percent+"");
+                    //pLoop_Send_Msg.Add_Send_Msg("progress2",strUser, Percent+"");
                 }
                 if (pData.size()>max_read) break;
 
@@ -237,7 +231,8 @@ public class JavaMain {
                 while(p2.HasMoreElements()){
                     if (Line_Count % 100==0){
                         float Percent=Math.round(500*Line_Count/Row_Count)/10+50;
-                        pLoop_Send_Msg.Add_Send_Msg("progress2",strUser, Percent+"");
+                        TCP_Client.client.Send_Msg(0, "", "status","progress2",strUser, Percent+"");
+                        //pLoop_Send_Msg.Add_Send_Msg("progress2",strUser, Percent+"");
                     }
                     
                     C_Group pGroup=p2.NextElement();
@@ -282,7 +277,7 @@ public class JavaMain {
                 for(int k=iStart;k<pData.size();k++){
                     if (Line_Count % 1000==0){
                         float Percent=Math.round(500*Line_Count/Row_Count)/10+50;
-                        pLoop_Send_Msg.Add_Send_Msg("progress2", strUser,Percent+"");
+                        TCP_Client.client.Send_Msg(0, "", "status","progress2",strUser, Percent+"");
                     }
                     iCount+=1;
                     if (iCount % 10000 == 0) out.println(iCount);
@@ -298,18 +293,20 @@ public class JavaMain {
                     S_File.Write_Line(pFile2, strLineOutput);
                 }
             }
-            pLoop_Send_Msg.Add_Send_Msg("progress2", strUser,"100");
+            TCP_Client.client.Send_Msg(0, "", "status","progress2",strUser, "100");
+            //pLoop_Send_Msg.Add_Send_Msg("progress2", strUser,"100");
             Table pFrom=(Table) p.getFromItem();
             out.println("db="+pFrom.getName());
             
             pFile2.Close();
 
+            out.println("file_sql to="+strUser+" finished");
+            TCP_Client.client.Send_Msg(0, "", "file_sql",strOutput,strUser,"finished");
             
             Thread.sleep(10*1000);
         } catch (JSQLParserException | InterruptedException ex){
             Logger.getLogger(JavaMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-        pLoop_Send_Msg.bSend=false;
         System.exit(0);
     }
 

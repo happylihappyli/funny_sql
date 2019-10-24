@@ -52,7 +52,7 @@ public class ClientThread extends Thread{// implements Runnable{
     @Override
     public void run() {
         try {
-
+            String data_main="";
             boolean bError=false;
             while(bError==false){
                 int len=0;
@@ -70,29 +70,34 @@ public class ClientThread extends Thread{// implements Runnable{
                         }
                     }
                 }while(len==0);
+                
+                
                 if (len>0){
                     byte[] dest=new byte[len];
                     System.arraycopy(buffer,0, dest,0,len);
-                    String content=new String(dest,"utf-8");
-                    if (content.startsWith("m:")){
-                        int index1=content.indexOf(":<s>:");
-                        int index2=content.indexOf(":</s>");
-                        if (index2>index1 && index1>0){
-                            String strJSON=content.substring(index1+5,index2);
-                            JSONObject obj = new JSONObject(strJSON);
+                    String data=new String(dest,"utf-8");
+                    
+                    data=data_main+data;
+                    
+                    int index1=data.indexOf(":<s>:");
+                    int index2=data.indexOf(":</s>");
+                    while (index2>index1 && index1>-1){
+                        String strJSON=data.substring(index1+5,index2);
+                        JSONObject obj = new JSONObject(strJSON);
+                        if (obj.has("k")){
+                        }else{
                             Chat_Event(obj);
                         }
-                    }else{
-                        String[] strSplit=content.split("\\r\\n");
-                        for (String strSplit1 : strSplit) {
-                            if ("s:keep".equals(strSplit1)) {
-                                keep_count=0;
-                            }
+                        index1=data.indexOf(":<s>:");
+                        index2=data.indexOf(":</s>");
+                        if (index2 > index1 && index1 > 0 ){
+                        }else{
+                            data_main=data;
+                            break;
                         }
                     }
-                    System.out.println(content);
+                    System.out.println(data);
                 }
-            
             }
         } catch (IOException e) {
             try {

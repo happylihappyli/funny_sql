@@ -140,6 +140,7 @@ public class JavaMain {
                 Line_Count+=1;
             }
             if (Line_Count<max_read) max_read=Line_Count;
+            int Max_Line=Line_Count;
             
             
             pFile=S_file.main.Read_Begin(strFile, "utf-8");
@@ -161,7 +162,8 @@ public class JavaMain {
                 }else{
                     pData.add(pLine1);
                 }
-                if (Line_Count % 100==0){
+                int Step_Count=Math.round(Max_Line/50);
+                if (Line_Count % Step_Count==0){
                     float Percent=Math.round(500*Line_Count/max_read)/10;
                     TCP_Client.client.Send_Msg(0, "", "status","progress2",strUser, Percent+"");
                     //pLoop_Send_Msg.Add_Send_Msg("progress2",strUser, Percent+"");

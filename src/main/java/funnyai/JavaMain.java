@@ -162,7 +162,7 @@ public class JavaMain {
                 }else{
                     pData.add(pLine1);
                 }
-                int Step_Count=Math.round(Max_Line/50);
+                int Step_Count=Math.round(Max_Line/20);
                 if (Line_Count % Step_Count==0){
                     float Percent=Math.round(500*Line_Count/max_read)/10;
                     TCP_Client.client.Send_Msg(0, "", "status","progress2",strUser, Percent+"");
@@ -231,10 +231,10 @@ public class JavaMain {
                     p2=pTreapGroups.Elements();
                 }
                 while(p2.HasMoreElements()){
-                    if (Line_Count % 100==0){
+                    int Step_Count=Math.round(Max_Line/20);
+                    if (Line_Count % Step_Count==0){
                         float Percent=Math.round(500*Line_Count/Row_Count)/10+50;
                         TCP_Client.client.Send_Msg(0, "", "status","progress2",strUser, Percent+"");
-                        //pLoop_Send_Msg.Add_Send_Msg("progress2",strUser, Percent+"");
                     }
                     
                     C_Group pGroup=p2.NextElement();
@@ -277,10 +277,12 @@ public class JavaMain {
                 int iCount=0;
                 Line_Count=1;
                 for(int k=iStart;k<pData.size();k++){
-                    if (Line_Count % 1000==0){
+                    int Step_Count=Math.round(Max_Line/20);
+                    if (Line_Count % Step_Count==0){
                         float Percent=Math.round(500*Line_Count/Row_Count)/10+50;
                         TCP_Client.client.Send_Msg(0, "", "status","progress2",strUser, Percent+"");
                     }
+                    
                     iCount+=1;
                     if (iCount % 10000 == 0) out.println(iCount);
                     if (iCount>Row_Count) break;
